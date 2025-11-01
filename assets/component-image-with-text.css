@@ -402,7 +402,7 @@
 
 /*
   Multirow
-  note: consider removing from this stylesheet if multirow-specific styles increase signficantly
+  note: consider removing from this stylesheet if multirow-specific styles increase significantly
 */
 .multirow__inner {
   display: flex;
