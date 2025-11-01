@@ -47,7 +47,9 @@ if (!customElements.get('quick-order-list')) {
 
       handleResize() {
         this.totalBarPosition = window.innerHeight - this.totalBar.offsetHeight;
-        this.stickyHeader.height = this.stickyHeaderElement ? this.stickyHeaderElement.offsetHeight : 0;
+        if (this.stickyHeader && this.stickyHeaderElement) {
+          this.stickyHeader.height = this.stickyHeaderElement.offsetHeight;
+        }
       }
 
       initEventListeners() {
