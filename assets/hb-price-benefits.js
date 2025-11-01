@@ -1,4 +1,17 @@
-(() => {
+((global, factory) => {
+  const helpers = factory(global);
+
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    module.exports = helpers;
+  } else {
+    global.hbPriceBenefits = helpers;
+    if (helpers && typeof helpers.autoStart === 'function') {
+      helpers.autoStart(global.document);
+    }
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : window, (global) => {
+  const documentRef = global?.document;
+
   const RATES = { 7: 0.0748, 8: 0.081, 9: 0.0872, 10: 0.0917, 11: 0.0979, 12: 0.1042 };
   const formatBRL = (() => {
     try {
@@ -25,28 +38,31 @@
 
   function renderTable(tbody, priceCents) {
     if (!tbody) return;
+    const doc = tbody.ownerDocument || documentRef;
+    if (!doc) return;
+
     tbody.innerHTML = '';
 
     for (let count = 1; count <= 12; count += 1) {
       const { rate, per, total } = compute(priceCents, count);
-      const tr = document.createElement('tr');
+      const tr = doc.createElement('tr');
       if (count === 6) {
         tr.classList.add('hb-benefits__row--highlight');
       }
 
-      const tdCount = document.createElement('td');
+      const tdCount = doc.createElement('td');
       tdCount.textContent = `${count}x`;
       tr.appendChild(tdCount);
 
-      const tdPer = document.createElement('td');
+      const tdPer = doc.createElement('td');
       tdPer.textContent = formatBRL(per);
       tr.appendChild(tdPer);
 
-      const tdTotal = document.createElement('td');
+      const tdTotal = doc.createElement('td');
       tdTotal.textContent = formatBRL(total);
       tr.appendChild(tdTotal);
 
-      const tdRate = document.createElement('td');
+      const tdRate = doc.createElement('td');
       tdRate.textContent = rate === 0 ? 'sem juros' : `${(rate * 100).toFixed(2).replace('.', ',')}%`;
       tr.appendChild(tdRate);
 
@@ -69,14 +85,16 @@
 
   function update(root, priceCents) {
     const normalized = Number(priceCents);
-    if (Number.isNaN(normalized)) return;
+    if (Number.isNaN(normalized) || !root) return;
 
     root.dataset.hbPrice = String(normalized);
     renderSummary(root, normalized);
     renderTable(root.querySelector('[data-hb-table-body]'), normalized);
   }
 
-  function attachVariantListeners(root) {
+  function attachVariantListeners(root, doc = documentRef) {
+    if (!doc) return;
+
     const handler = (event) => {
       const variant = event?.detail?.variant;
       if (variant && typeof variant.price === 'number') {
@@ -84,24 +102,46 @@
       }
     };
 
-    document.addEventListener('variant:change', handler);
-    document.addEventListener('theme:variant:change', handler);
-    document.addEventListener('product:variant-change', handler);
+    doc.addEventListener('variant:change', handler);
+    doc.addEventListener('theme:variant:change', handler);
+    doc.addEventListener('product:variant-change', handler);
   }
 
-  function init(root) {
+  function init(root, doc = documentRef) {
     if (!root) return;
 
     const priceCents = Number(root.dataset.hbPrice || 0) || 0;
     update(root, priceCents);
-    attachVariantListeners(root);
+    attachVariantListeners(root, doc);
   }
 
-  const start = () => document.querySelectorAll('[data-hb-benefits]').forEach(init);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start);
-  } else {
-    start();
+  function start(doc = documentRef) {
+    if (!doc) return;
+    doc.querySelectorAll('[data-hb-benefits]').forEach((root) => init(root, doc));
   }
-})();
+
+  function autoStart(doc = documentRef) {
+    if (!doc) return;
+
+    const run = () => start(doc);
+
+    if (doc.readyState === 'loading') {
+      doc.addEventListener('DOMContentLoaded', run);
+    } else {
+      run();
+    }
+  }
+
+  return {
+    RATES,
+    formatBRL,
+    compute,
+    renderTable,
+    renderSummary,
+    update,
+    attachVariantListeners,
+    init,
+    start,
+    autoStart,
+  };
+});
