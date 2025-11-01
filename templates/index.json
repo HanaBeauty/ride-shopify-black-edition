@@ -32,6 +32,7 @@
         },
         "slide_ncnfbU": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/banner-linha-03_resized.png",
             "image_overlay_opacity": 0,
@@ -68,6 +69,7 @@
         },
         "slide_U7web4": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Clin-Clean-Amlash_8b987e64-f683-424b-af48-8ae8edc699f4.jpg",
             "image_overlay_opacity": 0,
@@ -86,6 +88,7 @@
         },
         "slide_pbJmtt": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/banner-linha-02_resized.png",
             "image_overlay_opacity": 0,
