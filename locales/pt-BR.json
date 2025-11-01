@@ -118,7 +118,7 @@
     "product": {
       "add_to_cart": "Add ao carrinho",
       "description": "Descrição",
-      "on_sale": "Promoção Limitada",
+      "on_sale": "Black November",
       "quantity": {
         "label": "Quantidade",
         "input_label": "Quantidade de {{ product }}",
