@@ -2,15 +2,15 @@
   Renders a collection card
 
   Accepts:
-  - card_collection: {Object} Collection Liquid object
+  - card_collection: {Object} Collection Liquid object (required)
   - media_aspect_ratio: {String} Size of the product image card. Values are "square" and "portrait". Default is "square" (optional)
-  - columns: {Number}
+  - columns: {Number} Number of cards per row used for responsive image sizing (required)
   - extend_height: {Boolean} Card height extends to available container space. Default: false (optional)
   - wrapper_class: {String} Wrapper class for card (optional)
   - placeholder_image: {String} Placeholder image when collection is empty (optional)
 
   Usage:
-  {% render 'card-collection' %}
+  {% render 'card-collection', card_collection: collection, columns: 3 %}
 {% endcomment %}
 
 {%- liquid
