@@ -1,0 +1,10 @@
+[
+  {
+    "date": "2025-11-05T20:00:00Z",
+    "file": "product-professional-program.liquid",
+    "version": "1.0-BlackNovember",
+    "action": "Implementação de bloco promocional Black November",
+    "reverted_to": "product-professional-program__backup.liquid",
+    "approved_by": "Oráculo do Ecommerce"
+  }
+]
