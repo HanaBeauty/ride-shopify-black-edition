@@ -413,6 +413,35 @@
 </script>
 
   </head>
+
+  {% comment %}
+  HANA BEAUTY — THEME STATUS BADGE
+  Automação visual para identificar versão UX ativa no painel admin.
+  {% endcomment %}
+
+  {% assign hana_theme_version = "2.0" %}
+  <div style="
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:9999;
+    background: {% if hana_theme_version == '2.0' %} #c6a34f {% else %} #b3b3b3 {% endif %};
+    color: {% if hana_theme_version == '2.0' %} #000 {% else %} #fff {% endif %};
+    font-size:12px;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    font-family:'Poppins',sans-serif;
+    opacity:0.85;
+  ">
+    {% if hana_theme_version == '2.0' %}
+      🟢 UX Contrast Active (v2.0)
+    {% else %}
+      ⚪ UX Classic (v1.9)
+    {% endif %}
+  </div>
+
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7PJG6W" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

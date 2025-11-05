@@ -14,5 +14,19 @@
     "action": "Correção de link WhatsApp oficial (+15558043916)",
     "approved_by": "Oráculo do Ecommerce",
     "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-05T23:00:00Z",
+    "version": "Hana Premium UX Contrast v2.0",
+    "action": "Atualização visual com nova paleta, contraste e microinterações",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T00:30:00Z",
+    "version": "Hana Premium UX Contrast v1.9 (Rollback)",
+    "action": "Restauração do layout clássico e paleta original",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
   }
 ]
