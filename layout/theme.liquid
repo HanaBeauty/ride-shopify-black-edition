@@ -9,6 +9,16 @@
     })(window,document,'script','dataLayer','GTM-K7PJG6W');</script>
     <!-- End Google Tag Manager -->
 
+    <!-- GA4 Global site tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <!-- End GA4 Global site tag -->
+
     <!-- Added by AVADA SEO Suite -->
     {% render 'avada-seo' %}
     <!-- /Added by AVADA SEO Suite -->
@@ -414,33 +424,30 @@
 
   </head>
 
-  {% comment %}
-  HANA BEAUTY — THEME STATUS BADGE
-  Automação visual para identificar versão UX ativa no painel admin.
-  {% endcomment %}
+{% comment %}
+HANA BEAUTY — THEME STATUS BADGE
+Automação visual para identificar versão UX ativa no painel admin.
+{% endcomment %}
 
-  {% assign hana_theme_version = "2.0" %}
-  <div style="
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    z-index:9999;
-    background: {% if hana_theme_version == '2.0' %} #c6a34f {% else %} #b3b3b3 {% endif %};
-    color: {% if hana_theme_version == '2.0' %} #000 {% else %} #fff {% endif %};
-    font-size:12px;
-    font-weight:600;
-    padding:8px 14px;
-    border-radius:8px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.2);
-    font-family:'Poppins',sans-serif;
-    opacity:0.85;
-  ">
-    {% if hana_theme_version == '2.0' %}
+  {% if content_for_header contains 'shopify.design_mode' %}
+    {% assign hana_theme_version = "2.0" %}
+    <div style="
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      z-index:9999;
+      background:#c6a34f;
+      color:#000;
+      font-size:12px;
+      font-weight:600;
+      padding:8px 14px;
+      border-radius:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);
+      font-family:'Poppins',sans-serif;
+      opacity:0.85;">
       🟢 UX Contrast Active (v2.0)
-    {% else %}
-      ⚪ UX Classic (v1.9)
-    {% endif %}
-  </div>
+    </div>
+  {% endif %}
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <!-- Google Tag Manager (noscript) -->
