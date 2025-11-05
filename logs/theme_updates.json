@@ -23,9 +23,58 @@
     "executed_by": "Agent Codex"
   },
   {
+    "date": "2025-11-05T23:59:00Z",
+    "version": "Central Atendimento v1.0",
+    "action": "Backups e preparação para Central de Atendimento",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T00:05:00Z",
+    "version": "Central Atendimento v1.0",
+    "action": "Desativado botão flutuante WhatsApp (render/include comentado)",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T00:20:00Z",
+    "version": "Central Atendimento v1.0",
+    "action": "Criados template JSON e section Liquid da Central",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T00:28:00Z",
+    "version": "Central Atendimento v1.0",
+    "action": "Adicionado botão compacto fixo de Atendimento (substitui WhatsApp floater)",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
     "date": "2025-11-06T00:30:00Z",
     "version": "Hana Premium UX Contrast v1.9 (Rollback)",
     "action": "Restauração do layout clássico e paleta original",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T00:32:00Z",
+    "version": "Central Atendimento v1.0",
+    "action": "CSS global da Central (foco, contrastes, espaçamento mobile)",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T00:36:00Z",
+    "version": "Central Atendimento v1.0",
+    "action": "Integração GA4 (gtag) com eventos e parâmetro channel",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T00:45:00Z",
+    "version": "Central Atendimento v1.0",
+    "action": "Página criada e vinculada no header/footer",
     "approved_by": "Oráculo do Ecommerce",
     "executed_by": "Agent Codex"
   }

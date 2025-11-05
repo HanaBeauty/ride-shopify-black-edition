@@ -28,16 +28,3 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 4px 14px rgba(0,0,0,0.1);
 }
-
-/* CENTRAL HANA — reforços globais */
-:root{
-  --hana-black:#0a0a0a;
-  --hana-gold:#c6a34f;
-  --hana-white:#f9f9f9;
-}
-.hana-central a.central-card:focus{ outline:2px solid var(--hana-gold); outline-offset:2px; border-radius:16px; }
-
-/* Evitar sobreposição em páginas com elementos fixed */
-@media (max-width: 768px){
-  .footer, footer { padding-bottom: 68px; } /* espaço para o botão */
-}
