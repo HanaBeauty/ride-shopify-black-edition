@@ -1,0 +1,22 @@
+{% comment %}
+HANA BEAUTY — TEMPLATE PADRÃO DE PÁGINAS (v2.1)
+Uniformiza páginas institucionais com tipografia Poppins e layout centralizado.
+{% endcomment %}
+
+{{ 'page-default.css' | asset_url | stylesheet_tag }}
+
+<section class="hana-page-default" aria-labelledby="hana-page-default-title">
+  <div class="hana-page-wrapper">
+    <h1 id="hana-page-default-title" class="hana-page-title">{{ page.title }}</h1>
+    <div class="hana-page-content">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Template padrão de páginas",
+  "settings": []
+}
+{% endschema %}

@@ -9,16 +9,6 @@
     })(window,document,'script','dataLayer','GTM-K7PJG6W');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- GA4 Global site tag -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    <!-- End GA4 Global site tag -->
-
     <!-- Added by AVADA SEO Suite -->
     {% render 'avada-seo' %}
     <!-- /Added by AVADA SEO Suite -->
@@ -424,30 +414,33 @@
 
   </head>
 
-{% comment %}
-HANA BEAUTY — THEME STATUS BADGE
-Automação visual para identificar versão UX ativa no painel admin.
-{% endcomment %}
+  {% comment %}
+  HANA BEAUTY — THEME STATUS BADGE
+  Automação visual para identificar versão UX ativa no painel admin.
+  {% endcomment %}
 
-  {% if content_for_header contains 'shopify.design_mode' %}
-    {% assign hana_theme_version = "2.0" %}
-    <div style="
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      z-index:9999;
-      background:#c6a34f;
-      color:#000;
-      font-size:12px;
-      font-weight:600;
-      padding:8px 14px;
-      border-radius:8px;
-      box-shadow:0 2px 6px rgba(0,0,0,0.2);
-      font-family:'Poppins',sans-serif;
-      opacity:0.85;">
+  {% assign hana_theme_version = "2.0" %}
+  <div style="
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:9999;
+    background: {% if hana_theme_version == '2.0' %} #c6a34f {% else %} #b3b3b3 {% endif %};
+    color: {% if hana_theme_version == '2.0' %} #000 {% else %} #fff {% endif %};
+    font-size:12px;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    font-family:'Poppins',sans-serif;
+    opacity:0.85;
+  ">
+    {% if hana_theme_version == '2.0' %}
       🟢 UX Contrast Active (v2.0)
-    </div>
-  {% endif %}
+    {% else %}
+      ⚪ UX Classic (v1.9)
+    {% endif %}
+  </div>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <!-- Google Tag Manager (noscript) -->
@@ -532,7 +525,119 @@ Automação visual para identificar versão UX ativa no painel admin.
     {{ 'hb-price-benefits.js' | asset_url | script_tag }}
     {{ 'hb-shipping-toggle.js' | asset_url | script_tag }}
 
-    {% render 'hb-contact-button' %}
+    <!-- Botão WhatsApp com Tracking (compacto no mobile) -->
+<style>
+  #whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 15px;
+    padding: 12px 16px 12px 44px;
+    border-radius: 50px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  #whatsapp-button:hover {
+    background-color: #1ebe5d;
+    transform: scale(1.04);
+  }
+
+  #whatsapp-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Estilo mais compacto no mobile */
+  @media (max-width: 600px) {
+    #whatsapp-button {
+      font-size: 13px;
+      padding: 10px 12px 10px 40px;
+      bottom: 16px;
+      right: 16px;
+    }
+
+    #whatsapp-icon {
+      width: 18px;
+      height: 18px;
+      left: 12px;
+    }
+
+    /* Substituir o texto por algo mais curto se quiser:
+    #whatsapp-button span {
+      display: none;
+    }
+    */
+  }
+</style>
+
+<a
+  id="whatsapp-button"
+  href="https://api.whatsapp.com/send?phone=15558043916&text=Olá%2C%20estou%20navegando%20na%20Hana%20Beauty%20e%20preciso%20de%20ajuda%20com%20um%20produto.%20Pode%20me%20ajudar%3F"
+  target="_blank"
+  aria-label="Fale com uma especialista no WhatsApp"
+>
+  <img id="whatsapp-icon" src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" />
+  <span>Fale com uma especialista</span>
+</a>
+
+<script>
+  document.getElementById('whatsapp-button').addEventListener('click', function () {
+    // Google Tag Manager / GA4
+    if (window.dataLayer) {
+      dataLayer.push({
+        event: 'whatsapp_click',
+        category: 'WhatsApp',
+        action: 'Clique no botão flutuante',
+        label: window.location.pathname
+      });
+    }
+
+    // Freshmarketer Custom Event
+    if (window.FM && typeof FM.trackCustomEvent === 'function') {
+      try {
+        FM.trackCustomEvent('Contato WhatsApp', {
+          page_url: window.location.href,
+          button_position: 'fixed-bottom-right',
+          source: 'botao-whatsapp',
+          device: window.innerWidth < 600 ? 'mobile' : 'desktop'
+        });
+      } catch (err) {
+        console.warn('Erro ao rastrear evento FM:', err);
+      }
+    }
+
+    // Identificação no Freshsales CRM (se disponível)
+    if (window.fwcrm && typeof fwcrm.identify === 'function') {
+      try {
+        const email = {{ customer.email | json }} || '';
+        if (email) {
+          fwcrm.identify(email, {
+            "Email": email,
+            "Interação": "Clique no WhatsApp",
+            "Origem": "Botão flutuante",
+            "page": window.location.pathname
+          });
+        }
+      } catch (err) {
+        console.warn('Erro ao identificar no fwcrm:', err);
+      }
+    }
+  });
+</script>
 
    </body>
 </html>
