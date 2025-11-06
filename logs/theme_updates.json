@@ -84,5 +84,12 @@
     "action": "Auditoria completa de implantação + correção de badge admin + verificação GA4 + fallback testado",
     "approved_by": "Oráculo do Ecommerce",
     "executed_by": "Agent Codex"
+  },
+  {
+    "date": "2025-11-06T03:00:00Z",
+    "version": "Hana UX Refinement v2.1",
+    "action": "Ajustes de ícones, comportamento do widget e padronização visual das páginas institucionais.",
+    "approved_by": "Oráculo do Ecommerce",
+    "executed_by": "Agent Codex"
   }
 ]

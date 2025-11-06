@@ -19,7 +19,13 @@ GA4: eventos contact_hub_view, contact_channel_click (channel dimension).
        target="_blank" rel="noopener"
        aria-label="WhatsApp Profissional Hana"
        data-channel="whatsapp">
-      <img src="{{ 'icon-whatsapp.svg' | asset_url }}" alt="WhatsApp" width="40" height="40" loading="lazy">
+      <span class="central-card__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#c6a34f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" fill="#000000" />
+          <path d="M16 17l-1-1c-1-1-2-2-3-2-1 0-1 1-2 2l-1 1 2 2 5-2z" stroke="#c6a34f" />
+          <path d="M12 6a6 6 0 0 0 0 12" stroke="#c6a34f" />
+        </svg>
+      </span>
       <h3>WhatsApp Profissional</h3>
       <p>Atendimento técnico e comercial.</p>
     </a>
@@ -36,22 +42,35 @@ GA4: eventos contact_hub_view, contact_channel_click (channel dimension).
     </a>
 
     <!-- FAQ -->
-    <a role="listitem"
-       class="central-card"
-       href="/pages/faq"
-       aria-label="Dúvidas Frequentes"
-       data-channel="faq">
+    <div role="listitem"
+         class="central-card central-card--faq"
+         aria-label="Central de dúvidas frequentes">
       <img src="{{ 'icon-faq.svg' | asset_url }}" alt="FAQ" width="40" height="40" loading="lazy">
       <h3>Dúvidas Frequentes</h3>
       <p>Respostas imediatas.</p>
-    </a>
+      <div class="central-card__links" aria-label="Links de dúvidas frequentes">
+        <a href="https://www.hanabeauty.com.br/pages/loja-duivdas"
+           data-channel="faq-site"
+           target="_blank"
+           rel="noopener"
+           class="central-card__link">Dúvidas sobre o site</a>
+        <span aria-hidden="true">|</span>
+        <a href="https://www.hanabeauty.com.br/pages/produto-duvidas"
+           data-channel="faq-produtos"
+           target="_blank"
+           rel="noopener"
+           class="central-card__link">Dúvidas sobre produtos</a>
+      </div>
+    </div>
 
     <!-- Rastreio -->
     <a role="listitem"
        class="central-card"
-       href="/pages/rastreio"
+       href="https://account.hanabeauty.com.br/orders"
        aria-label="Rastrear Pedido"
-       data-channel="rastreio">
+       data-channel="rastreio"
+       target="_blank"
+       rel="noopener">
       <img src="{{ 'icon-tracking.svg' | asset_url }}" alt="Rastreamento de Pedido" width="40" height="40" loading="lazy">
       <h3>Rastrear Pedido</h3>
       <p>Acompanhe seu envio.</p>
@@ -83,12 +102,20 @@ GA4: eventos contact_hub_view, contact_channel_click (channel dimension).
   background:#f9f9f9; border-radius:16px; padding:24px; text-decoration:none; color:inherit;
   transition:transform .25s ease, box-shadow .25s ease; box-shadow:0 2px 6px rgba(0,0,0,.04);
   outline: none;
+  display:flex; flex-direction:column; align-items:center;
+  gap:8px;
 }
+.central-card__icon { display:flex; align-items:center; justify-content:center; width:40px; height:40px; margin:0 auto; }
+.central-card__icon svg { width:40px; height:40px; display:block; }
 .central-card:hover, .central-card:focus {
   transform:translateY(-4px); box-shadow:0 4px 12px rgba(0,0,0,.1);
 }
 .central-card h3 { font-size:1rem; color:#0a0a0a; margin-top:8px; }
-.central-card p { font-size:.92rem; color:#666; margin:4px 0 0; }
+.central-card p { font-size:.92rem; color:#666; margin:0; }
+.central-card--faq { text-align:center; }
+.central-card__links { margin-top:12px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; font-size:0.9rem; }
+.central-card__link { color:#0a0a0a; font-weight:600; text-decoration:none; position:relative; }
+.central-card__link:hover, .central-card__link:focus { color:#c6a34f; text-decoration:underline; }
 
 /* Mobile */
 @media (max-width: 768px){
@@ -112,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   // Click nos canais
-  document.querySelectorAll('.central-card').forEach(function(el){
+  document.querySelectorAll('[data-channel]').forEach(function(el){
     el.addEventListener('click', function(){
       var channel = el.getAttribute('data-channel') || 'unknown';
       if (typeof gtag === 'function') {
