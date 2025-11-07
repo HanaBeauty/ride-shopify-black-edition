@@ -50,6 +50,98 @@
 
     {% render 'meta-tags' %}
 
+    <script>
+      (function () {
+        if (typeof URL === 'undefined') {
+          return;
+        }
+
+        var canonicalOrigin = {{ request.origin | json }};
+        if (!canonicalOrigin) {
+          return;
+        }
+
+        var canonicalOriginNormalized = canonicalOrigin.replace(/\/$/, '');
+        var legacyHosts = [
+          {{ shop.permanent_domain | json }}
+        ].filter(function (host) {
+          return host && host.length;
+        });
+
+        try {
+          var canonicalHost = new URL(canonicalOrigin).host;
+          legacyHosts = legacyHosts.filter(function (host) {
+            return host !== canonicalHost;
+          });
+        } catch (error) {
+          // ignore URL parsing failures and continue with the captured hosts
+        }
+
+        if (!legacyHosts.length) {
+          return;
+        }
+
+        var disallowedProtocols = ['mailto:', 'tel:', 'javascript:'];
+
+        var retargetLink = function (anchor) {
+          var href = anchor.getAttribute('href');
+          if (!href || href.charAt(0) === '#') {
+            return;
+          }
+
+          var loweredHref = href.toLowerCase();
+          for (var i = 0; i < disallowedProtocols.length; i += 1) {
+            if (loweredHref.indexOf(disallowedProtocols[i]) === 0) {
+              return;
+            }
+          }
+
+          var linkURL;
+          try {
+            linkURL = new URL(href, canonicalOrigin);
+          } catch (error) {
+            return;
+          }
+
+          if (legacyHosts.indexOf(linkURL.host) === -1) {
+            return;
+          }
+
+          var normalizedHref =
+            canonicalOriginNormalized +
+            linkURL.pathname +
+            linkURL.search +
+            linkURL.hash;
+
+          anchor.setAttribute('href', normalizedHref);
+        };
+
+        var retargetLinks = function (root) {
+          var scope = root || document;
+          var anchors = scope.querySelectorAll('a[href]');
+          for (var index = 0; index < anchors.length; index += 1) {
+            retargetLink(anchors[index]);
+          }
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+          retargetLinks(document);
+        });
+
+        document.addEventListener('shopify:section:load', function (event) {
+          retargetLinks(event.target);
+        });
+
+        document.addEventListener('shopify:block:select', function (event) {
+          retargetLinks(event.target);
+        });
+
+        document.addEventListener('shopify:block:deselect', function (event) {
+          retargetLinks(event.target);
+        });
+      })();
+    </script>
+
     {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
