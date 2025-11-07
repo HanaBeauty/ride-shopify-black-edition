@@ -192,7 +192,7 @@
   "collections_count": {{ shop.collections_count | json }},
   "currency": {{ shop.currency | json }},
   "description": {{ shop.description | json }},
-  "domain": {{ shop.domain | json }},
+  "domain": {{ shop.secure_url | remove: 'https://' | remove: 'http://' | json }},
   "email": {{ shop.email | json }},
   "enabled_currencies": {{ shop.enabled_currencies | json }},
   "enabled_payment_types": {{ shop.enabled_payment_types | json }},
@@ -201,7 +201,7 @@
   "money_with_currency_format": {{ shop.money_with_currency_format | json }},
   "name": {{ shop.name | json }},
   "password_message": {{ shop.password_message | json }},
-  "permanent_domain": {{ shop.permanent_domain | json }},
+  "permanent_domain": {{ shop.secure_url | remove: 'https://' | remove: 'http://' | json }},
   "phone": {{ shop.phone | json }},
   "policies": {{ shop.policies | json }},
   "privacy_policy": {{ shop.privacy_policy | json }},
@@ -213,7 +213,7 @@
   "secure_url": {{ shop.secure_url | json }},
   "taxes_included": {{ shop.taxes_included | json }},
   "types": {{ shop.types | json }},
-  "url": {{ shop.url | json }},
+  "url": {{ shop.secure_url | json }},
   "vendors": {{ shop.vendors | json }}
 }
 ]

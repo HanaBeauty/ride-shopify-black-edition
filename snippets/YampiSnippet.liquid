@@ -30,7 +30,7 @@
         ,   cartEndpoint = 'https://api.dooki.com.br/v2/public/shopify/cart'
         ,   statusEndpoint = 'https://api.dooki.com.br/v2/public/shopify/status'
         ,   shop = '{{ shop.secure_url }}'
-        ,   shopifyInternalUrl = '{{ shop.permanent_domain }}'
+        ,   shopifyInternalUrl = "{{ shop.secure_url | remove: 'https://' | remove: 'http://' }}"
         ,   ymp_hasUrlSupport = 'undefined' !== typeof URL && 'undefined' !== typeof URLSearchParams
         ,   ymp_utmCookieName = 'utmsTrack';
 
