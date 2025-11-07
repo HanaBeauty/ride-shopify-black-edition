@@ -17,6 +17,12 @@
   | prepend:'/'
   | replace:'//','/'
 -%}
+{%- if pageUrl | starts_with: '/www.' -%}
+  {%- assign pageUrl = pageUrl | remove_first: '/www.' -%}
+  {%- unless pageUrl | starts_with: '/' -%}
+    {%- assign pageUrl = pageUrl | prepend: '/' -%}
+  {%- endunless -%}
+{%- endif -%}
 
 {% assign handles = pageUrl | split: 'handle=' | last %}
 {% assign h_array = handles | split: ',' %}
