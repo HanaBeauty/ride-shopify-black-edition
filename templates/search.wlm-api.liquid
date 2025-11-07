@@ -1,11 +1,32 @@
 {% layout none %}
 {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
 
-{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
-   replace:'\/','/' |
-   replace:'%20',' ' |
-   replace:'\u0026','&'
+{%- assign pageUrl = contentForQuerystring
+  | split:'"pageurl":"'
+  | last
+  | split:'"'
+  | first
+  | replace:'\/','/'
+  | replace:'%20',' '
+  | replace:'\u0026','&'
+  | remove: shop.primary_domain.url
+  | remove: shop.secure_url
+  | remove: shop.url
+  | replace:'https://',''
+  | replace:'http://',''
+  | remove: shop.primary_domain.host
+  | remove: shop.domain
+  | remove: shop.permanent_domain
+  | prepend:'/'
+  | replace:'//','/'
+  | strip
 -%}
+{%- if pageUrl | starts_with: '/www.' -%}
+  {%- assign pageUrl = pageUrl | remove_first: '/www.' -%}
+  {%- unless pageUrl | starts_with: '/' -%}
+    {%- assign pageUrl = pageUrl | prepend: '/' -%}
+  {%- endunless -%}
+{%- endif -%}
 
 {% assign handles = pageUrl | split: 'handle=' | last %}
 {% assign h_array = handles | split: ',' %}
