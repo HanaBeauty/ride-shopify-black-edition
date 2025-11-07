@@ -193,7 +193,7 @@
       "type": "featured-collection",
       "name": "Extensão de Cílios",
       "settings": {
-        "collection": "cursos",
+        "collection": "cilios",
         "products_to_show": 25,
         "title": "Produtos Premium para Extensão de Cílios",
         "heading_size": "h1",
