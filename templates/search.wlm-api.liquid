@@ -9,9 +9,6 @@
   | replace:'\/','/'
   | replace:'%20',' '
   | replace:'\u0026','&'
-  | remove: shop.primary_domain.url
-  | remove: shop.secure_url
-  | remove: shop.url
   | replace:'https://',''
   | replace:'http://',''
   | remove: shop.primary_domain.host
@@ -19,7 +16,6 @@
   | remove: shop.permanent_domain
   | prepend:'/'
   | replace:'//','/'
-  | strip
 -%}
 {%- if pageUrl | starts_with: '/www.' -%}
   {%- assign pageUrl = pageUrl | remove_first: '/www.' -%}
