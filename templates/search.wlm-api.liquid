@@ -16,6 +16,7 @@
   | remove: shop.permanent_domain
   | prepend:'/'
   | replace:'//','/'
+  | strip
 -%}
 {%- if pageUrl | starts_with: '/www.' -%}
   {%- assign pageUrl = pageUrl | remove_first: '/www.' -%}
