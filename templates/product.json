@@ -92,7 +92,7 @@
             "button_width": 100,
             "calculate_button_text": "Calcular",
             "font_size_button": 14,
-            "shipping_list_color": "#000000",
+            "shipping_list_color": "#ffffff",
             "date_format_display": "days"
           }
         },
