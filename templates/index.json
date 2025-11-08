@@ -635,67 +635,6 @@
         "padding_bottom": 8
       }
     },
-    "collapsible_content_FQJjjx": {
-      "type": "collapsible-content",
-      "blocks": {
-        "collapsible_row_F7VLmW": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Qual o prazo de entrega e como acompanhar meu pedido?",
-            "icon": "truck",
-            "row_content": "<p>O prazo de entrega varia de acordo com a sua localização e a opção de frete escolhida. Assim que seu pedido for enviado, você receberá um código de rastreamento por e-mail para acompanhar a entrega em tempo real.</p>",
-            "page": "frete-entrega"
-          }
-        },
-        "collapsible_row_nNV3PH": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Os produtos são indicados para todos os tipos de pele?",
-            "icon": "eye",
-            "row_content": "<p>Cada produto possui uma recomendação específica. Na descrição de cada item, informamos para quais tipos de pele ele é mais indicado. Se tiver dúvidas, entre em contato com nosso atendimento!</p>",
-            "page": "produto-duvidas"
-          }
-        },
-        "collapsible_row_exWwep": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Quais são as formas de pagamento disponíveis?",
-            "icon": "price_tag",
-            "row_content": "<p>Aceitamos pagamentos via cartão de crédito, PIX, boleto bancário e transferência bancária. Parcelamos as compras no cartão de crédito em até 3x vezes sem juros (verifique as condições no checkout).</p>",
-            "page": "formas-de-pagamento"
-          }
-        },
-        "collapsible_row_VkLCYY": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Posso trocar ou devolver um produto caso não me adapte?",
-            "icon": "return",
-            "row_content": "<p>Entendemos que nem sempre o produto atende às expectativas do profissional. Porém, por questões de segurança, higiene e normas de saúde, a troca ou devolução só será possível se o item estiver lacrado, sem indícios de uso e dentro do prazo legal de arrependimento (sete dias contados a partir do recebimento, no caso de compras online). Como comercializamos produtos de uso profissional, se o lacre estiver violado ou houver qualquer sinal de uso, não podemos aceitar a devolução, salvo em casos de defeito ou divergência comprovada. Se tiver dúvidas ou precisar de mais informações, entre em contato com a nossa equipe de atendimento para avaliarmos o seu caso.</p>",
-            "page": "trocas-e-devolucoes"
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row_F7VLmW",
-        "collapsible_row_nNV3PH",
-        "collapsible_row_exWwep",
-        "collapsible_row_VkLCYY"
-      ],
-      "settings": {
-        "caption": "",
-        "heading": "Perguntas Frequentes",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "layout": "row",
-        "container_color_scheme": "scheme-55fcd67b-9427-4155-aca4-24b601997eef",
-        "color_scheme": "scheme-ca152d7b-b92c-4264-a6b4-33deb2b8f752",
-        "open_first_collapsible_row": false,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 8,
-        "padding_bottom": 8
-      }
-    },
     "174897879499daa071": {
       "type": "apps",
       "blocks": {
@@ -729,7 +668,6 @@
     "image_with_text_yFc6wG",
     "featured_collection_enw9wy",
     "collection_list_Ykkhka",
-    "collapsible_content_FQJjjx",
     "174897879499daa071"
   ]
 }
