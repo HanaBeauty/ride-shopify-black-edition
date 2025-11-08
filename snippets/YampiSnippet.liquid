@@ -2,15 +2,15 @@
 <link rel="preconnect" crossorigin href="https://api.yampi.io">
 
 {% if template.name == 'product' %}
-  <script src="https://www.mercadopago.com/v2/security.js" view="item"></script>
+  <script src="https://www.mercadopago.com/v2/security.js" view="item" defer></script>
 {% endif %}
 
 {% if template.name == 'index' %}
-  <script src="https://www.mercadopago.com/v2/security.js" view="home"></script>
+  <script src="https://www.mercadopago.com/v2/security.js" view="home" defer></script>
 {% endif %}
 
 {% if template.name == 'search' %}
-  <script src="https://www.mercadopago.com/v2/security.js" view="search"></script>
+  <script src="https://www.mercadopago.com/v2/security.js" view="search" defer></script>
 {% endif %}
 
 <link rel="stylesheet" href="https://cdn.yampi.me/shopify/checkout.css">

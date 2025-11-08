@@ -1,4 +1,4 @@
-<script type='text/javascript' src='/apps/wlm/js/wlm-1.1.js?v=2.0'></script>
+<script src="/apps/wlm/js/wlm-1.1.js?v=2.0" defer></script>
 {% assign wlmEnabled = false %}
 {% assign wlmLockON = false %}
 {% assign wlmRedirectURL = '' %} 
@@ -22,15 +22,30 @@
 {% capture wlm_check_hide %}{% include 'wlm-hideByLink' %}{% endcapture %}{% unless wlm_check_hide contains 'Liquid error' %}{% include 'wlm-hideByLink' %}{% endunless %}
 
 {% if wlmLockON %}<meta name='robots' content='NOINDEX,NOFOLLOW,NOARCHIVE,NOSNIPPET,NOODP,NOYDIR' />{% endif %}
-<script type='text/javascript'>
-{% if wlmLockON %}
-wlm.navigate('{{ wlmRedirectURL}}');
-{% else %}
-wlm.navigateByLocation();
-{% endif %}
-wlm.jq(document).ready(function(){
-wlm.removeLinks();
-});
+<script>
+  window.addEventListener('load', function () {
+    if (typeof wlm === 'undefined' || !wlm) {
+      return;
+    }
+
+    {% if wlmLockON %}
+      if (typeof wlm.navigate === 'function') {
+        wlm.navigate('{{ wlmRedirectURL}}');
+      }
+    {% else %}
+      if (typeof wlm.navigateByLocation === 'function') {
+        wlm.navigateByLocation();
+      }
+    {% endif %}
+
+    if (wlm.jq && typeof wlm.jq === 'function') {
+      wlm.jq(document).ready(function(){
+        if (typeof wlm.removeLinks === 'function') {
+          wlm.removeLinks();
+        }
+      });
+    }
+  });
 </script>
 {% capture wlm_hide_price_check %}{% include "wlm-hide-price" %}{% endcapture %}
 {% unless wlm_hide_price_check contains 'Liquid error' %}
