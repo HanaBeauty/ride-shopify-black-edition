@@ -24,9 +24,9 @@ body {
   background: linear-gradient(90deg, var(--hana-gold) 0%, #e7d38f 100%);
   color: #000;
 }
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* CENTRAL HANA — reforços globais */
