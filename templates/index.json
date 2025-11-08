@@ -191,7 +191,6 @@
     },
     "featured_collection_JDgWgw": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Extensão de Cílios",
       "settings": {
         "collection": "cilios",
@@ -260,7 +259,6 @@
     },
     "featured_collection_CpqpD3": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Alongamento de Unhas",
       "settings": {
         "collection": "unhas",
@@ -329,7 +327,6 @@
     },
     "featured_collection_fx8pCU": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Pincéis Profissionais",
       "settings": {
         "collection": "pinceis",
@@ -398,7 +395,6 @@
     },
     "featured_collection_69rXdn": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Maquiagem | Aerógrafos ",
       "settings": {
         "collection": "maquiagem",
@@ -476,7 +472,6 @@
     },
     "featured_collection_KCgaCp": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Ofertas | Promoções",
       "settings": {
         "collection": "ofertas",
@@ -554,7 +549,6 @@
     },
     "featured_collection_enw9wy": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Cílios Coloridos",
       "settings": {
         "collection": "fios-coloridos",
@@ -628,7 +622,6 @@
         "featured_collection_pxPjMt",
         "featured_collection_R7fmjz"
       ],
-      "disabled": true,
       "settings": {
         "title": "",
         "heading_size": "h2",
