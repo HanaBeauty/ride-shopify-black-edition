@@ -3631,13 +3631,11 @@ details-disclosure > details {
   border-radius: 20px;
   padding: 20px;
   background: #fff;
-  box-shadow: 0 6px 16px var(--product-card-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-wrapper:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px var(--product-card-shadow);
+.product-card {
+  box-shadow: 0 6px 16px var(--product-card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card--standard .card__media {
@@ -3684,6 +3682,9 @@ details-disclosure > details {
   .card-wrapper {
     padding: 12px;
     border-radius: 16px;
+  }
+
+  .product-card {
     box-shadow: 0 3px 8px var(--product-card-shadow);
   }
 
@@ -3711,6 +3712,14 @@ details-disclosure > details {
     width: 100%;
     padding: 10px 0;
     font-size: 14px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .product-card:hover,
+  .card:hover {
+    transform: none !important;
+    box-shadow: none !important;
   }
 }
 
