@@ -81,7 +81,7 @@
           "type": "shopify://apps/calculo-de-frete-inteligente/blocks/star_rating/b938cb20-6b7e-480d-a6dd-585b462088c2",
           "settings": {
             "shipping_calculator_heading": "Cálculo de frete",
-            "title_color": "#000000",
+            "title_color": "#ffffff",
             "font_size_title": 14,
             "input_color": "#000000",
             "border_radius": 20,
