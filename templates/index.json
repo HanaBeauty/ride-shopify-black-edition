@@ -50,6 +50,7 @@
         },
         "slide_rGPiVd": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/banner-horizontal-01_resized.png",
             "image_overlay_opacity": 0,
@@ -115,7 +116,7 @@
       "custom_css": [],
       "settings": {
         "layout": "full_bleed",
-        "slide_height": "small",
+        "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 3,
