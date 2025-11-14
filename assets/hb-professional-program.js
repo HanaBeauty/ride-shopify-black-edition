@@ -1,6 +1,7 @@
 (function () {
   const ROOT_SELECTOR = '[data-hb-pro-program]';
   const GLOBAL_INIT_KEY = '__hbProProgramInitAll';
+  const DEFAULT_WHATSAPP_PHONE = '5511947393315';
 
   function getContext(scope) {
     if (scope && typeof scope.querySelectorAll === 'function') {
@@ -26,12 +27,6 @@
     });
 
     return result.trim();
-  }
-
-  function detectMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent,
-    );
   }
 
   function getVolumeLabel(selectValue, customInput) {
@@ -76,10 +71,9 @@
     ].join('\n');
   }
 
-  function getWhatsappBaseUrl() {
-    return detectMobile()
-      ? 'https://api.whatsapp.com/send'
-      : 'https://web.whatsapp.com/send';
+  function getWhatsappBaseUrl(phone) {
+    const sanitized = (phone || '').replace(/\D+/g, '') || DEFAULT_WHATSAPP_PHONE;
+    return `https://wa.me/${sanitized}`;
   }
 
   function updateLink({
@@ -93,22 +87,22 @@
     if (!button) return;
 
     const message = buildMessage({ baseTitle, volume, frequency, sku });
+    const normalizedPhone = (phone || DEFAULT_WHATSAPP_PHONE).replace(/\D+/g, '') || DEFAULT_WHATSAPP_PHONE;
     const searchParams = new URLSearchParams({
-      phone: phone || '15558043916',
       text: message,
       utm_source: 'produto',
       utm_medium: 'whatsapp',
       utm_campaign: 'pro-volume',
     });
 
-    const url = `${getWhatsappBaseUrl()}?${searchParams.toString()}`;
+    const url = `${getWhatsappBaseUrl(normalizedPhone)}?${searchParams.toString()}`;
     button.setAttribute('href', url);
   }
 
   function init(root) {
     if (!root || root.dataset.hbProProgramInit === 'true') return;
 
-    const phone = root.dataset.whatsappPhone || '15558043916';
+    const phone = root.dataset.whatsappPhone || DEFAULT_WHATSAPP_PHONE;
     const baseTitle = toBaseTitle(root.dataset.productTitle || '');
     const sku = root.dataset.productSku || '';
     const volumeSelect = root.querySelector('[data-hb-pro-volume]');
