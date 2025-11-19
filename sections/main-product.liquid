@@ -114,12 +114,7 @@
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {%- render 'price',
-                    product: product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'price--large'
-                  -%}
+                  {% render 'price-pix', product: product %}
                 </div>
                 {% assign full_price = product.selected_or_first_available_variant.price %}
                 {% assign pix_price = full_price | times: 0.97 %}

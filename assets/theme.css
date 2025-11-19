@@ -43,33 +43,21 @@ body {
 }
 
 /* Preço PIX */
-.price-pix {
+.hana-price-wrapper {
+  margin: 10px 0;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem;
-  margin-top: 0.5rem;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: inherit;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.price-full {
-  margin-top: 0.25rem;
-  font-size: 0.95rem;
-  color: #444;
+.hana-price-full {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.85;
 }
 
-.pix-value {
-  font-size: 1.1rem;
-}
-
-@media (min-width: 750px) {
-  .price-pix {
-    font-size: 1.1rem;
-  }
-
-  .pix-value {
-    font-size: 1.15rem;
-  }
+.hana-price-pix {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #e61e64;
 }
