@@ -1,0 +1,81 @@
+/* Maquia Pro preview styles - non intrusive */
+:root {
+  --maquia-primary: #111827;
+  --maquia-accent: #f47c7c;
+  --maquia-soft: #f8fafc;
+}
+
+.maquia-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: linear-gradient(90deg, var(--maquia-primary), #0f172a);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.maquia-top-bar__label { text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.8; font-size: 0.75rem; }
+.maquia-top-bar__message { display: inline-flex; align-items: center; gap: 0.5rem; animation: fadeSlide 12s infinite; }
+.maquia-top-bar__pill { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.2rem 0.65rem; border-radius: 999px; background: rgba(255,255,255,0.1); }
+
+@keyframes fadeSlide {
+  0% {opacity: 0; transform: translateY(10px);} 10% {opacity:1; transform: translateY(0);} 40% {opacity:1;} 50% {opacity:0; transform: translateY(-10px);} 100% {opacity:0;}
+}
+
+.maquia-top-bar__cta { background: #fff; color: var(--maquia-primary); padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.maquia-top-bar__cta:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
+
+.maquia-mega { background: var(--maquia-soft); padding: 2rem 1.5rem; border-radius: 1rem; box-shadow: 0 15px 45px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
+.maquia-mega__header { display:flex; justify-content: space-between; gap: 1rem; align-items: center; margin-bottom:1rem; }
+.maquia-mega__grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:1.2rem; }
+.maquia-mega__item { background:#fff; padding:1rem; border-radius:0.85rem; box-shadow:0 1px 4px rgba(0,0,0,0.05); transition:transform 0.2s ease, box-shadow 0.2s ease; }
+.maquia-mega__item:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+.maquia-mega__cta { display:inline-flex; align-items:center; gap:0.4rem; color: var(--maquia-accent); font-weight:700; text-decoration:none; }
+
+.maquia-carousel { position:relative; overflow:hidden; }
+.maquia-carousel__track { display:grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 22vw); gap: 1rem; overflow-x:auto; scroll-snap-type:x mandatory; padding:0 0 1rem; }
+.maquia-carousel__card { background:#fff; border-radius:1rem; box-shadow:0 10px 30px rgba(0,0,0,0.06); padding:1rem; scroll-snap-align:start; display:flex; flex-direction:column; gap:0.6rem; }
+.maquia-carousel__nav { position:absolute; inset: 0; display:flex; justify-content:space-between; align-items:center; pointer-events:none; }
+.maquia-carousel__btn { pointer-events:all; background: rgba(255,255,255,0.9); border:1px solid #e5e7eb; border-radius:50%; width:40px; height:40px; display:grid; place-items:center; font-weight:800; cursor:pointer; }
+
+.maquia-drawer { position: fixed; inset:0; display:none; z-index: 1000; }
+.maquia-drawer.is-open { display:block; }
+.maquia-drawer__overlay { position:absolute; inset:0; background: rgba(0,0,0,0.45); backdrop-filter: blur(2px); }
+.maquia-drawer__panel { position:absolute; top:0; right:0; width:min(480px, 100%); height:100%; background:#fff; box-shadow:-16px 0 32px rgba(0,0,0,0.15); display:flex; flex-direction:column; }
+.maquia-drawer__header { padding:1rem 1.25rem; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; }
+.maquia-drawer__items { flex:1; overflow:auto; padding:1rem; display:flex; flex-direction:column; gap:0.75rem; }
+.maquia-drawer__line { display:grid; grid-template-columns: 70px 1fr; gap:0.75rem; padding:0.75rem; border:1px solid #f1f5f9; border-radius:0.8rem; }
+.maquia-drawer__summary { padding:1rem; border-top:1px solid #e5e7eb; display:flex; flex-direction:column; gap:0.6rem; }
+.maquia-progress { height:10px; background:#f1f5f9; border-radius:999px; overflow:hidden; }
+.maquia-progress__bar { height:100%; background: linear-gradient(90deg, #22c55e, #84cc16); width:0%; transition:width 0.3s ease; }
+
+.maquia-pdp { display:grid; gap:1.5rem; background:#fff; padding:1.5rem; border-radius:1rem; box-shadow:0 10px 28px rgba(0,0,0,0.06); }
+.maquia-pdp__sticky { position:sticky; top:1rem; border:1px dashed #e5e7eb; padding:1rem; border-radius:1rem; background:#f8fafc; }
+.maquia-pill { display:inline-flex; align-items:center; gap:0.3rem; padding:0.25rem 0.75rem; border-radius:999px; background:#e0f2fe; color:#0ea5e9; font-weight:700; }
+.maquia-benefits { display:grid; gap:0.65rem; }
+.maquia-benefits__item { display:flex; gap:0.6rem; align-items:flex-start; }
+
+.maquia-editorial { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:1.5rem; align-items:center; background:#fff; padding:1.5rem; border-radius:1rem; box-shadow:0 8px 20px rgba(0,0,0,0.05); }
+.maquia-editorial__image img { width:100%; border-radius:1rem; object-fit:cover; }
+
+.maquia-ugc { display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:0.65rem; }
+.maquia-ugc__item { position:relative; border-radius:1rem; overflow:hidden; aspect-ratio:1; }
+.maquia-ugc__item img { width:100%; height:100%; object-fit:cover; transition: transform 0.3s ease; }
+.maquia-ugc__item:hover img { transform: scale(1.05); }
+
+.maquia-footer-pro { background: #0b1220; color:#e2e8f0; padding:2rem 1.5rem; border-radius:1.2rem; }
+.maquia-footer-pro__grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:1.25rem; }
+.maquia-footer-pro a { color:#cbd5f5; text-decoration:none; }
+.maquia-footer-pro__brand { font-size:1.1rem; font-weight:800; letter-spacing:0.03em; }
+
+@media (max-width: 768px) {
+  .maquia-top-bar { flex-direction: column; text-align: center; }
+  .maquia-mega__grid { grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); }
+  .maquia-carousel__track { grid-auto-columns: 80%; }
+  .maquia-drawer__panel { width: 100%; }
+}

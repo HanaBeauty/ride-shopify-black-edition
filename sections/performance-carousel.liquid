@@ -1,0 +1,86 @@
+{%- comment -%}
+  Prévia funcional: Carrossel de alta performance para lançamentos e mais vendidos
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'maquia-pro-preview.css' | asset_url }}" media="all">
+<script src="{{ 'maquia-pro-preview.js' | asset_url }}" defer></script>
+
+<div class="maquia-carousel" data-maquia-carousel>
+  <div class="maquia-mega__header">
+    <div>
+      <p class="maquia-pill">{{ section.settings.pill }}</p>
+      <h2>{{ section.settings.title }}</h2>
+      <p>{{ section.settings.subtitle }}</p>
+    </div>
+    {%- if section.settings.cta_label and section.settings.cta_link -%}
+      <a class="maquia-mega__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }} →</a>
+    {%- endif -%}
+  </div>
+
+  <div class="maquia-carousel__nav">
+    <button type="button" class="maquia-carousel__btn" aria-label="Anterior" data-carousel-prev>‹</button>
+    <button type="button" class="maquia-carousel__btn" aria-label="Próximo" data-carousel-next>›</button>
+  </div>
+
+  <div class="maquia-carousel__track" data-carousel-track>
+    {%- if section.settings.collection != blank and collections[section.settings.collection] -%}
+      {%- for product in collections[section.settings.collection].products limit: section.settings.limit -%}
+        <article class="maquia-carousel__card">
+          <a href="{{ product.url }}">
+            <div style="border-radius:0.85rem; overflow:hidden; aspect-ratio:4/5; background:#f8fafc;">
+              {{ product.featured_image | image_url: width: 520 | image_tag: loading: 'lazy', alt: product.title }}
+            </div>
+            <h3>{{ product.title }}</h3>
+            <p>{{ product.price | money }}</p>
+          </a>
+          {%- if section.settings.show_reviews and product.metafields.reviews.rating.value -%}
+            <div aria-label="Avaliação média" style="display:flex; gap:0.35rem; align-items:center;">
+              <span>★</span>
+              <span>{{ product.metafields.reviews.rating.value | round: 1 }}/5</span>
+            </div>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for block in section.blocks -%}
+        <article class="maquia-carousel__card">
+          <div style="border-radius:0.85rem; overflow:hidden; aspect-ratio:4/5; background:#f8fafc; display:grid; place-items:center; color:#94a3b8;">
+            {{ block.settings.placeholder }}
+          </div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </article>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Prévia - Carrossel Performance",
+  "tag": "section",
+  "class": "section-maquia-preview",
+  "settings": [
+    {"type": "text", "id": "pill", "label": "Pill", "default": "Novidades"},
+    {"type": "text", "id": "title", "label": "Título", "default": "Lançamentos e best-sellers"},
+    {"type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Carrossel responsivo com scroll suave."},
+    {"type": "collection", "id": "collection", "label": "Coleção"},
+    {"type": "range", "id": "limit", "label": "Qtde de itens", "default": 8, "min": 4, "max": 20, "step": 1},
+    {"type": "checkbox", "id": "show_reviews", "label": "Exibir nota média (metafield reviews.rating)", "default": true},
+    {"type": "text", "id": "cta_label", "label": "CTA principal", "default": "Ver tudo"},
+    {"type": "url", "id": "cta_link", "label": "Link CTA"}
+  ],
+  "blocks": [
+    {
+      "type": "placeholder",
+      "name": "Item placeholder",
+      "limit": 6,
+      "settings": [
+        {"type": "text", "id": "placeholder", "label": "Texto de imagem", "default": "Slide"},
+        {"type": "text", "id": "title", "label": "Título", "default": "Produto exemplo"},
+        {"type": "text", "id": "text", "label": "Texto", "default": "Insira coleção para dados reais."}
+      ]
+    }
+  ],
+  "presets": [{"name": "Prévia: Carrossel Performance"}]
+}
+{% endschema %}

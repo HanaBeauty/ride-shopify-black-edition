@@ -1,0 +1,49 @@
+{%- comment -%}
+  Prévia funcional: Barra de mensagens PRO
+  Não altera header atual. Ative apenas em páginas de teste.
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'maquia-pro-preview.css' | asset_url }}" media="all">
+<script src="{{ 'maquia-pro-preview.js' | asset_url }}" defer></script>
+
+<section class="maquia-top-bar" data-maquia-topbar data-interval="{{ section.settings.interval | default: 8000 }}">
+  <span class="maquia-top-bar__label">{{ section.settings.label }}</span>
+  <div class="maquia-top-bar__message">
+    {%- for block in section.blocks -%}
+      <span class="maquia-top-bar__pill" data-topbar-message style="display: none;">
+        {%- if block.settings.icon != blank -%}
+          <span aria-hidden="true">{{ block.settings.icon }}</span>
+        {%- endif -%}
+        <span>{{ block.settings.text }}</span>
+      </span>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+    <a class="maquia-top-bar__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Prévia - Barra PRO",
+  "tag": "section",
+  "class": "section-maquia-preview",
+  "settings": [
+    {"type": "text", "id": "label", "label": "Prefixo", "default": "Hana Pro"},
+    {"type": "number", "id": "interval", "label": "Intervalo (ms)", "default": 8000},
+    {"type": "text", "id": "cta_label", "label": "Texto CTA", "default": "Ver novidades"},
+    {"type": "url", "id": "cta_link", "label": "Link CTA"}
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Mensagem",
+      "settings": [
+        {"type": "text", "id": "icon", "label": "Emoji/ícone", "default": "✨"},
+        {"type": "text", "id": "text", "label": "Texto", "default": "Envio rápido para todo o Brasil"}
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{"name": "Prévia: Barra PRO"}]
+}
+{% endschema %}

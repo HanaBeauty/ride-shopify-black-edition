@@ -1,0 +1,84 @@
+{%- comment -%}
+  Prévia funcional: PDP Premium com sticky ATC, benefícios e selos
+  Não altera PDP atual. Ative em template duplicado.
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'maquia-pro-preview.css' | asset_url }}" media="all">
+<script src="{{ 'maquia-pro-preview.js' | asset_url }}" defer></script>
+
+<section class="maquia-pdp">
+  <div>
+    <p class="maquia-pill">{{ section.settings.pill }}</p>
+    <h1>{{ section.settings.title | default: product.title }}</h1>
+    <p>{{ section.settings.subtitle }}</p>
+
+    <div class="maquia-benefits">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'benefit' -%}
+          <div class="maquia-benefits__item">
+            <span aria-hidden="true">{{ block.settings.icon }}</span>
+            <div>
+              <p style="font-weight:700;">{{ block.settings.title }}</p>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.timer_end != blank -%}
+      <div style="margin-top:1rem; display:flex; gap:0.65rem; align-items:center;">
+        <span class="maquia-pill">Oferta expira em</span>
+        <span data-countdown-end="{{ section.settings.timer_end }}" data-expired-label="Oferta encerrada"></span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <aside class="maquia-pdp__sticky">
+    <p style="font-weight:700;">{{ section.settings.sticky_title }}</p>
+    <p>{{ section.settings.sticky_text }}</p>
+    <button class="maquia-top-bar__cta" style="width:100%; justify-content:center;" onclick="document.querySelector('[name=\"add\"]')?.click();">{{ section.settings.cta_label }}</button>
+    <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'badge' -%}
+          <span class="maquia-pill">{{ block.settings.label }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </aside>
+</section>
+
+{% schema %}
+{
+  "name": "Prévia - PDP Premium",
+  "tag": "section",
+  "class": "section-maquia-preview",
+  "settings": [
+    {"type": "text", "id": "pill", "label": "Pill", "default": "Coleção exclusiva"},
+    {"type": "text", "id": "title", "label": "Título", "default": "Produto premium"},
+    {"type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Blocos de benefícios e sticky ATC."},
+    {"type": "text", "id": "sticky_title", "label": "Título sticky", "default": "Pronto para levar?"},
+    {"type": "text", "id": "sticky_text", "label": "Texto sticky", "default": "Selecione variação e adicione ao carrinho."},
+    {"type": "text", "id": "cta_label", "label": "Label do botão", "default": "Adicionar ao carrinho"},
+    {"type": "text", "id": "timer_end", "label": "Encerramento da oferta (YYYY-MM-DD)"}
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "settings": [
+        {"type": "text", "id": "icon", "label": "Emoji/ícone", "default": "🌿"},
+        {"type": "text", "id": "title", "label": "Título", "default": "Dermatologicamente testado"},
+        {"type": "text", "id": "text", "label": "Texto", "default": "Resultados visíveis em 7 dias."}
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Selo",
+      "settings": [
+        {"type": "text", "id": "label", "label": "Texto", "default": "Garantia Hana"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Prévia: PDP Premium"}]
+}
+{% endschema %}
