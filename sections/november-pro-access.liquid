@@ -50,7 +50,7 @@ Section: November Pro Access — Abastecimento sob medida
     </div>
   {% endif %}
 
-  {%- assign wa_phone = section.settings.whatsapp_phone | strip | default: '15558043916' -%}
+  {%- assign wa_phone = section.settings.whatsapp_phone | strip | default: '5511947393315' -%}
   {%- assign wa_msg = section.settings.whatsapp_message | default: 'Quero minha reserva Pro Access' -%}
   {%- assign wa_url = 'https://wa.me/' | append: wa_phone | append: '?text=' | append: wa_msg | url_encode -%}
 
@@ -92,7 +92,7 @@ Section: November Pro Access — Abastecimento sob medida
     { "id": "swap_deadline", "type": "text", "label": "Prazo swap", "default": "20/12/2025" },
 
     { "type": "header", "content": "WhatsApp (montagem automática do link)" },
-    { "id": "whatsapp_phone", "type": "text", "label": "Telefone (somente dígitos com DDI)", "default": "15558043916" },
+    { "id": "whatsapp_phone", "type": "text", "label": "Telefone (somente dígitos com DDI)", "default": "5511947393315" },
     { "id": "whatsapp_message", "type": "text", "label": "Mensagem padrão", "default": "Quero minha reserva Pro Access" },
 
     { "type": "header", "content": "CTA alternativo (formulário)" },

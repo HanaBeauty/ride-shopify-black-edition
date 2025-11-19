@@ -1,0 +1,61 @@
+{%- comment -%}
+  Prévia funcional: Mega Menu avançado (não substitui navegação atual)
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'maquia-pro-preview.css' | asset_url }}" media="all">
+<section class="maquia-mega">
+  <header class="maquia-mega__header">
+    <div>
+      <p class="maquia-pill">{{ section.settings.pill }}</p>
+      <h2>{{ section.settings.title }}</h2>
+      <p>{{ section.settings.subtitle }}</p>
+    </div>
+    {%- if section.settings.cta_label and section.settings.cta_link -%}
+      <a class="maquia-mega__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }} →</a>
+    {%- endif -%}
+  </header>
+  <div class="maquia-mega__grid">
+    {%- for block in section.blocks -%}
+      <article class="maquia-mega__item">
+        {%- if block.settings.image != blank -%}
+          <div style="border-radius:0.75rem; overflow:hidden; margin-bottom:0.65rem;">
+            <img src="{{ block.settings.image | img_url: '400x' }}" alt="{{ block.settings.title }}" loading="lazy" width="400" height="240">
+          </div>
+        {%- endif -%}
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+        {%- if block.settings.link != blank -%}
+          <a class="maquia-mega__cta" href="{{ block.settings.link }}">{{ block.settings.link_label }} →</a>
+        {%- endif -%}
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Prévia - Mega Menu PRO",
+  "tag": "section",
+  "class": "section-maquia-preview",
+  "settings": [
+    {"type": "text", "id": "pill", "label": "Pill", "default": "Hana+"},
+    {"type": "text", "id": "title", "label": "Título", "default": "Navegação premium"},
+    {"type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Organize coleções, CTAs e imagens em colunas."},
+    {"type": "text", "id": "cta_label", "label": "CTA principal", "default": "Ver catálogo"},
+    {"type": "url", "id": "cta_link", "label": "Link CTA"}
+  ],
+  "blocks": [
+    {
+      "type": "coluna",
+      "name": "Coluna",
+      "settings": [
+        {"type": "text", "id": "title", "label": "Título", "default": "Coleção destaque"},
+        {"type": "text", "id": "text", "label": "Descrição", "default": "Subcategoria, ícones ou CTA interno."},
+        {"type": "image_picker", "id": "image", "label": "Imagem"},
+        {"type": "text", "id": "link_label", "label": "Texto do link", "default": "Explorar"},
+        {"type": "url", "id": "link", "label": "Link"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Prévia: Mega Menu PRO"}]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+{%- comment -%}
+  Prévia funcional: Seção social / UGC em mosaico
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'maquia-pro-preview.css' | asset_url }}" media="all">
+
+<section>
+  <div class="maquia-mega__header">
+    <div>
+      <p class="maquia-pill">{{ section.settings.pill }}</p>
+      <h2>{{ section.settings.title }}</h2>
+      <p>{{ section.settings.subtitle }}</p>
+    </div>
+    <p style="font-weight:700;">{{ section.settings.hashtag }}</p>
+  </div>
+  <div class="maquia-ugc">
+    {%- for block in section.blocks -%}
+      <figure class="maquia-ugc__item">
+        {%- if block.settings.image -%}
+          <img src="{{ block.settings.image | img_url: '400x' }}" alt="{{ block.settings.caption }}" loading="lazy" width="400" height="400">
+        {%- else -%}
+          <div style="background:#f1f5f9; height:100%; display:grid; place-items:center; color:#94a3b8;">UGC</div>
+        {%- endif -%}
+        {%- if block.settings.caption != blank -%}
+          <figcaption style="position:absolute; left:0; right:0; bottom:0; padding:0.5rem; background:linear-gradient(180deg, transparent, rgba(0,0,0,0.55)); color:#fff;">
+            {{ block.settings.caption }}
+          </figcaption>
+        {%- endif -%}
+      </figure>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Prévia - Social UGC",
+  "tag": "section",
+  "class": "section-maquia-preview",
+  "settings": [
+    {"type": "text", "id": "pill", "label": "Pill", "default": "#HanaBeauty"},
+    {"type": "text", "id": "title", "label": "Título", "default": "Histórias reais"},
+    {"type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Mosaico responsivo para UGC."},
+    {"type": "text", "id": "hashtag", "label": "Hashtag", "default": "#ClubeDaHana"}
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "UGC",
+      "settings": [
+        {"type": "image_picker", "id": "image", "label": "Imagem"},
+        {"type": "text", "id": "caption", "label": "Legenda", "default": "Cliente feliz"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Prévia: Social UGC"}]
+}
+{% endschema %}

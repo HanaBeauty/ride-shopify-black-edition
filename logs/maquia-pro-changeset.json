@@ -1,0 +1,23 @@
+{
+  "summary": "Prévia Maquia Pro adicionada sem tocar em áreas protegidas",
+  "created_at": "2025-02-05T00:00:00Z",
+  "files_added": [
+    "assets/maquia-pro-preview.css",
+    "assets/maquia-pro-preview.js",
+    "sections/pro-top-bar.liquid",
+    "sections/pro-mega-menu.liquid",
+    "sections/performance-carousel.liquid",
+    "sections/pro-drawer-cart.liquid",
+    "sections/pdp-premium-blocks.liquid",
+    "sections/editorial-story.liquid",
+    "sections/social-ugc-mosaic.liquid",
+    "sections/footer-pro.liquid",
+    "logs/maquia-pro-audit-report.md"
+  ],
+  "files_modified": [],
+  "rollback": [
+    "Remover seções adicionadas em páginas de teste",
+    "Excluir assets maquia-pro-preview.css/js se não forem usados"
+  ],
+  "notes": "Nenhum layout original, header/footer ou bloco de tracking foi alterado."
+}

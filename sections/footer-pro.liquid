@@ -1,0 +1,70 @@
+{%- comment -%}
+  Prévia funcional: Footer PRO renovado (não substitui footer atual)
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'maquia-pro-preview.css' | asset_url }}" media="all">
+
+<footer class="maquia-footer-pro">
+  <div class="maquia-footer-pro__grid">
+    <div>
+      <p class="maquia-footer-pro__brand">{{ section.settings.brand }}</p>
+      <p>{{ section.settings.description }}</p>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'social' -%}
+            <a href="{{ block.settings.link }}" aria-label="{{ block.settings.label }}">{{ block.settings.label }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div>
+      <p class="maquia-pill">Institucional</p>
+      <ul style="list-style:none; padding:0; display:grid; gap:0.35rem;">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'link' -%}
+            <li><a href="{{ block.settings.url }}">{{ block.settings.label }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div>
+      <p class="maquia-pill">Contato</p>
+      <p>{{ section.settings.contact }}</p>
+      <p>{{ section.settings.address }}</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Prévia - Footer PRO",
+  "tag": "section",
+  "class": "section-maquia-preview",
+  "settings": [
+    {"type": "text", "id": "brand", "label": "Marca", "default": "Hana Beauty"},
+    {"type": "textarea", "id": "description", "label": "Descrição", "default": "Skincare profissional em casa."},
+    {"type": "text", "id": "contact", "label": "Contato", "default": "contato@hana.com"},
+    {"type": "text", "id": "address", "label": "Endereço", "default": "São Paulo, Brasil"}
+  ],
+  "blocks": [
+    {
+      "type": "social",
+      "name": "Rede social",
+      "settings": [
+        {"type": "text", "id": "label", "label": "Rótulo", "default": "Instagram"},
+        {"type": "url", "id": "link", "label": "Link"}
+      ]
+    },
+    {
+      "type": "link",
+      "name": "Link institucional",
+      "settings": [
+        {"type": "text", "id": "label", "label": "Texto", "default": "Sobre nós"},
+        {"type": "url", "id": "url", "label": "URL"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Prévia: Footer PRO"}]
+}
+{% endschema %}
