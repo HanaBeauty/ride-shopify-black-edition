@@ -1,0 +1,36 @@
+{% liquid
+  assign use_pix = settings.enable_pix_discount
+  assign percent = settings.pix_discount_percent | divided_by: 100.0
+  assign label = settings.pix_discount_label
+  assign placeholder_mode = placeholder | default: false
+
+  assign has_product = product != blank
+  if has_product
+    assign variant = product.selected_or_first_available_variant
+    assign full_price = variant.price
+  elsif placeholder_mode
+    assign variant = nil
+    assign full_price = 1999
+  else
+    assign variant = nil
+    assign full_price = 0
+  endif
+
+  assign pix_price = full_price | minus: (full_price | times: percent)
+%}
+
+<div
+  class="hana-price-wrapper"
+  {% if variant %}data-product-variant="{{ variant | json | escape }}"{% endif %}
+  {% if has_product %}data-product-id="{{ product.id }}"{% endif %}
+>
+  <div class="hana-price-full">
+    {{ full_price | money }} em até 6x sem juros
+  </div>
+
+  {% if use_pix and full_price > 0 %}
+    <div class="hana-price-pix">
+      <span class="value">{{ pix_price | money }}</span> {{ label }} ({{ settings.pix_discount_percent }}% OFF)
+    </div>
+  {% endif %}
+</div>
