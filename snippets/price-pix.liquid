@@ -1,8 +1,10 @@
 {% liquid
   assign variant = product.selected_or_first_available_variant
   assign full_price = variant.price
-  assign percent = settings.pix_discount_percent | divided_by: 100.0
-  assign pix_price = full_price | minus: (full_price | times: percent)
+  assign percent = settings.pix_discount_percent | divided_by: 100
+
+  assign discount_amount = full_price | times: percent
+  assign pix_price = full_price | minus: discount_amount
 %}
 
 <div class="hana-price-wrapper">
