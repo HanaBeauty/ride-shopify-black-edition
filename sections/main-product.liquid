@@ -114,15 +114,12 @@
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {% render 'price-pix', product: product %}
-                </div>
-                {% assign full_price = product.selected_or_first_available_variant.price %}
-                {% assign pix_price = full_price | times: 0.97 %}
-                <div class="price-pix">
-                  <span class="pix-value">{{ pix_price | money }}</span> no PIX ou Boleto (3% OFF)
-                </div>
-                <div class="price-full">
-                  ou {{ full_price | money }} em até 6x sem juros
+                  {%- render 'price',
+                    product: product,
+                    use_variant: true,
+                    show_badges: true,
+                    price_class: 'price--large'
+                  -%}
                 </div>
                 {% if shop.currency == 'BRL' %}
                   {% render 'hb-price-benefits-product', product: product %}

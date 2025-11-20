@@ -36,62 +36,15 @@
     return { count, rate, per, total };
   }
 
-  function parseInstallmentsJSON(raw) {
-    if (!raw) return null;
-    try {
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : null;
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function normalizeInstallments(installments) {
-    if (!Array.isArray(installments)) return null;
-
-    return installments
-      .map((installment, index) => {
-        const count = Number(
-          installment?.count ??
-            installment?.installments ??
-            installment?.installment ??
-            installment?.quantity ??
-            installment?.times ??
-            index + 1,
-        );
-        const per = Number(installment?.amount ?? 0);
-        const total = Number(installment?.total ?? per * (Number.isFinite(count) ? count : index + 1));
-        const rate = Number(installment?.rate ?? 0);
-
-        return {
-          count: Number.isFinite(count) ? count : index + 1,
-          per: Number.isFinite(per) ? per : 0,
-          total: Number.isFinite(total) ? total : 0,
-          rate: Number.isFinite(rate) ? rate : 0,
-        };
-      })
-      .filter((installment) => installment.total > 0 || installment.per > 0);
-  }
-
-  function renderTable(tbody, priceCents, installments) {
+  function renderTable(tbody, priceCents) {
     if (!tbody) return;
     const doc = tbody.ownerDocument || documentRef;
     if (!doc) return;
 
     tbody.innerHTML = '';
 
-    const rows = normalizeInstallments(installments);
-    const hasGatewayData = Array.isArray(rows) && rows.length > 0;
-
-    const tableRows = hasGatewayData
-      ? rows
-      : Array.from({ length: 12 }, (_, index) => compute(priceCents, index + 1));
-
-    tableRows.forEach((row, index) => {
-      const count = row.count || index + 1;
-      const rate = typeof row.rate === 'number' ? row.rate : 0;
-      const per = row.per;
-      const total = row.total || per * count;
+    for (let count = 1; count <= 12; count += 1) {
+      const { rate, per, total } = compute(priceCents, count);
       const tr = doc.createElement('tr');
       if (count === 6) {
         tr.classList.add('hb-benefits__row--highlight');
@@ -114,7 +67,7 @@
       tr.appendChild(tdRate);
 
       tbody.appendChild(tr);
-    });
+    }
   }
 
   function renderSummary(root, priceCents) {
@@ -130,14 +83,13 @@
     if (pointsEl) pointsEl.textContent = ` e ganhe ${points} pontos`;
   }
 
-  function update(root, priceCents, installments) {
+  function update(root, priceCents) {
     const normalized = Number(priceCents);
     if (Number.isNaN(normalized) || !root) return;
 
     root.dataset.hbPrice = String(normalized);
     renderSummary(root, normalized);
-    const normalizedInstallments = normalizeInstallments(installments) || normalizeInstallments(parseInstallmentsJSON(root?.dataset?.hbInstallments));
-    renderTable(root.querySelector('[data-hb-table-body]'), normalized, normalizedInstallments);
+    renderTable(root.querySelector('[data-hb-table-body]'), normalized);
   }
 
   function attachVariantListeners(root, doc = documentRef) {
@@ -146,7 +98,7 @@
     const handler = (event) => {
       const variant = event?.detail?.variant;
       if (variant && typeof variant.price === 'number') {
-        update(root, variant.price, variant.installments);
+        update(root, variant.price);
       }
     };
 
