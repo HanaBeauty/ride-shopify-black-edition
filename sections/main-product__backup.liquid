@@ -114,7 +114,12 @@
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {% render 'price-pix', product: product %}
+                  {%- render 'price',
+                    product: product,
+                    use_variant: true,
+                    show_badges: true,
+                    price_class: 'price--large'
+                  -%}
                 </div>
                 {% if shop.currency == 'BRL' %}
                   {% render 'hb-price-benefits-product', product: product %}

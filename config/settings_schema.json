@@ -1400,32 +1400,6 @@
     ]
   },
   {
-    "name": "Preço à vista (PIX/BOLETO)",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "enable_pix_discount",
-        "label": "Ativar desconto à vista",
-        "default": true
-      },
-      {
-        "type": "range",
-        "id": "pix_discount_percent",
-        "label": "Percentual de desconto (%)",
-        "default": 3,
-        "min": 1,
-        "max": 20,
-        "step": 1
-      },
-      {
-        "type": "text",
-        "id": "pix_discount_label",
-        "label": "Texto exibido",
-        "default": "no PIX ou Boleto"
-      }
-    ]
-  },
-  {
     "name": "t:settings_schema.cart.name",
     "settings": [
       {

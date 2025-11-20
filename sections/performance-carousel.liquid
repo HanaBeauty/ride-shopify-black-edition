@@ -30,7 +30,7 @@
               {{ product.featured_image | image_url: width: 520 | image_tag: loading: 'lazy', alt: product.title }}
             </div>
             <h3>{{ product.title }}</h3>
-            {% render 'price-pix', product: product %}
+            <p>{{ product.price | money }}</p>
           </a>
           {%- if section.settings.show_reviews and product.metafields.reviews.rating.value -%}
             <div aria-label="Avaliação média" style="display:flex; gap:0.35rem; align-items:center;">

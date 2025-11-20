@@ -41,23 +41,3 @@ body {
 @media (max-width: 768px){
   .footer, footer { padding-bottom: 68px; } /* espaço para o botão */
 }
-
-/* Preço PIX */
-.hana-price-wrapper {
-  margin: 10px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.hana-price-full {
-  font-size: 1rem;
-  font-weight: 500;
-  opacity: 0.85;
-}
-
-.hana-price-pix {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #e61e64;
-}
