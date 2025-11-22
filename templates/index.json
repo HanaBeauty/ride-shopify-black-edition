@@ -126,6 +126,23 @@
         "accessibility_info": ""
       }
     },
+    "1763829685b0fb116d": {
+      "type": "apps",
+      "blocks": {
+        "essential_countdown_timer_app_block_MpTHKC": {
+          "type": "shopify://apps/essential-countdown-timer/blocks/app-block/722378e8-5a70-4eae-aa89-9e44e8e9f6de",
+          "settings": {
+            "id": "cmao3jjek00cdsmdd1vqnfinn"
+          }
+        }
+      },
+      "block_order": [
+        "essential_countdown_timer_app_block_MpTHKC"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "multicolumn_7pizfr": {
       "type": "multicolumn",
       "blocks": {
@@ -656,6 +673,7 @@
   },
   "order": [
     "slideshow_TenFGX",
+    "1763829685b0fb116d",
     "multicolumn_7pizfr",
     "featured_collection_JDgWgw",
     "image-with-text",
