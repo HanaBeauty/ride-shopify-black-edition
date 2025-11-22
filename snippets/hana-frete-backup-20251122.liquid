@@ -1,0 +1,161 @@
+{%- comment -%}
+HANA BEAUTY • Banner de Frete Grátis por Região (UI premium + leve)
+- Remove "Envio em até 2 dias..." e "Prazo de entrega..."
+- Detecta região e calcula mínimo por região
+- Verifica se produto OU carrinho >= mínimo
+- Sem imagens externas (SVG inline). CSS enxuto.
+{%- endcomment -%}
+
+{%- assign v = product.selected_or_first_available_variant -%}
+
+<div id="hana-frete" class="hana-frete" role="status" aria-live="polite">
+  <div class="hana-frete__row">
+    <!-- Ícone caminhão (SVG) -->
+    <svg class="hana-frete__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 6h11v8H3zM14 9h3l3 3v2h-6zM5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+    </svg>
+    <div class="hana-frete__text">
+      <div class="hana-frete__badge">Frete</div>
+      <div class="hana-frete__headline">
+        Frete grátis para <span id="hana-frete-region">sua região</span> em pedidos a partir de
+        <strong><span id="hana-frete-min">—</span></strong>
+      </div>
+      <div class="hana-frete__status" id="hana-frete-status" hidden></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ===== Helpers =====
+  const moneyBR = v => new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL' }).format(v/100);
+
+  // Preço do produto (centavos) via Liquid -> JS seguro
+  const productPriceCents = {{ v.price | default: 0 | json }};
+
+  // Mínimos por região (centavos)
+  const THRESHOLDS = {
+    "Sudeste": 19900,
+    "Sul": 32900,
+    "Centro-Oeste": 42900,
+    "Norte/Nordeste": 52900
+  };
+
+  const sudeste = ['SP','RJ','MG','ES'];
+  const sul = ['RS','SC','PR'];
+  const centro = ['GO','MT','MS','DF'];
+  const norteNordeste = ['AC','AP','AM','PA','RO','RR','TO','AL','BA','CE','MA','PB','PE','PI','RN','SE'];
+
+  const $region = document.getElementById('hana-frete-region');
+  const $min = document.getElementById('hana-frete-min');
+  const $status = document.getElementById('hana-frete-status');
+
+  // Busca carrinho (centavos). Em página de produto, pode estar vazio.
+  function getCartTotal(){
+    return fetch('/cart.js', { credentials:'same-origin' })
+      .then(r => r.ok ? r.json() : { total_price: 0 })
+      .then(cart => cart.total_price || 0)
+      .catch(() => 0);
+  }
+
+  // Detecta região via IP (leve e com fallback)
+  function detectRegion(){
+    return fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(d => {
+        const uf = (d.region_code || '').toUpperCase();
+        if (sudeste.includes(uf)) return 'Sudeste';
+        if (sul.includes(uf)) return 'Sul';
+        if (centro.includes(uf)) return 'Centro-Oeste';
+        if (norteNordeste.includes(uf)) return 'Norte/Nordeste';
+        return 'Sudeste'; // fallback mais comum nas vendas
+      })
+      .catch(() => 'Sudeste');
+  }
+
+  function updateUI(region, minCents, qualifies, diffCents){
+    $region.textContent = region;
+    $min.textContent = moneyBR(minCents);
+
+    if (qualifies){
+      $status.hidden = false;
+      $status.className = 'hana-frete__status ok';
+      $status.textContent = 'Frete grátis aplicado para sua região';
+    } else {
+      // Se preferir ocultar quando não qualifica, substitua por: document.getElementById('hana-frete').style.display = 'none';
+      $status.hidden = false;
+      $status.className = 'hana-frete__status warn';
+      $status.textContent = 'Faltam ' + moneyBR(diffCents) + ' para frete grátis';
+    }
+  }
+
+  Promise.all([detectRegion(), getCartTotal()]).then(([region, cartTotal]) => {
+    const minCents = THRESHOLDS[region] || THRESHOLDS['Sudeste'];
+    const basis = Math.max(productPriceCents || 0, cartTotal || 0);
+    const qualifies = basis >= minCents;
+    const diff = qualifies ? 0 : Math.max(minCents - basis, 0);
+    updateUI(region, minCents, qualifies, diff);
+  });
+})();
+</script>
+
+<style>
+/* ===== Estilo leve, premium e consistente com a loja ===== */
+.hana-frete{
+  border:1px solid #eee;
+  background:#fff;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.03);
+  color:#373737;
+}
+.hana-frete__row{ display:flex; align-items:flex-start; gap:12px; }
+.hana-frete__icon{
+  width:24px; height:24px; flex:0 0 24px;
+  fill:#bf1b5a; /* rosa escuro de marca */
+  margin-top:2px;
+}
+.hana-frete__text{ display:flex; flex-direction:column; gap:4px; }
+.hana-frete__badge{
+  display:inline-block;
+  background:#f9e8ee;
+  color:#bf1b5a;
+  border:1px solid #f3cddb;
+  padding:3px 10px;
+  border-radius:9999px;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.02em;
+  width:max-content;
+}
+.hana-frete__headline{
+  font-size:.98rem;
+}
+.hana-frete__status{
+  margin-top:2px;
+  font-size:.92rem;
+  font-weight:600;
+}
+.hana-frete__status.ok{
+  color:#2e7d32;
+  background:#f1fff5;
+  border:1px solid #d7f5df;
+  padding:4px 8px;
+  border-radius:999px;
+  width:max-content;
+}
+.hana-frete__status.warn{
+  color:#8a6a00;
+  background:#fff8e6;
+  border:1px solid #ffe2a9;
+  padding:4px 8px;
+  border-radius:999px;
+  width:max-content;
+}
+
+@media (max-width:480px){
+  .hana-frete{ padding:14px; border-radius:14px; }
+  .hana-frete__headline{ font-size:1rem; }
+  .hana-frete__status{ font-size:.98rem; }
+}
+</style>
